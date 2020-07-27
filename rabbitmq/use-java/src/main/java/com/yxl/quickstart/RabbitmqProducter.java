@@ -1,4 +1,4 @@
-package mq.producer;
+package com.yxl.quickstart;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -6,7 +6,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.util.concurrent.TimeoutException;
 
-public class Producer {
+public class RabbitmqProducer {
     //队列名称
     private final static String QUEUE_NAME = "helloMQ";
 

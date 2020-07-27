@@ -18,6 +18,7 @@ public class NewTask {
 
         String message = getMessage(argv);
 
+        //MessageProperties.PERSISTENT_TEXT_PLAIN 持久化消息
         channel.basicPublish("", TASK_QUEUE_NAME,
                 MessageProperties.PERSISTENT_TEXT_PLAIN,
                 message.getBytes("UTF-8"));
