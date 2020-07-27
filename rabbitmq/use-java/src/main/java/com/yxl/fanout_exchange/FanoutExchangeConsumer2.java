@@ -10,7 +10,7 @@ import java.util.concurrent.TimeoutException;
  * @author: yexianliang
  * @create: 2020-07-24 17:01
  **/
-public class FanoutExchangeConsumer {
+public class FanoutExchangeConsumer2 {
     public static void main(String[] args) throws IOException, TimeoutException {
         // 打开连接和创建频道，与发送端一样
         ConnectionFactory factory = new ConnectionFactory();
@@ -20,8 +20,8 @@ public class FanoutExchangeConsumer {
         Channel channel = connection.createChannel();
         String exchangeName = "yxl.fanoutExchange";
         String exchangeType = "fanout";
-        String queueName = "yxl.fanoutqueue";
-        String routeKey = "yxl.fanoutExchange.key";
+        String queueName = "yxl.fanoutqueue2";
+        String routingKey = "yxl.fanoutExchange.key";
 
         /**
          * 声明一个交换器
@@ -38,7 +38,7 @@ public class FanoutExchangeConsumer {
         /**
          * 队列和交换器绑定
          */
-        channel.queueBind(queueName, exchangeName, routeKey);
+        channel.queueBind(queueName, exchangeName, routingKey);
 
         //创建消费者
         Consumer consumer = new DefaultConsumer(channel) {
@@ -46,7 +46,7 @@ public class FanoutExchangeConsumer {
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
                                        byte[] body) throws IOException {
                 String message = new String(body, "UTF-8");
-                System.out.println("[FanoutExchangeConsumer] Received '" + message + "'");
+                System.out.println("[FanoutExchangeConsumer2] Received '" + message + "'");
             }
         };
         channel.basicConsume(queueName, true, consumer);

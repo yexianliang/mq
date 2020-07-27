@@ -6,7 +6,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 import java.util.concurrent.TimeoutException;
 
-public class RabbitmqProducer {
+public class RabbitmqProducter {
     //队列名称
     private final static String QUEUE_NAME = "helloMQ";
 

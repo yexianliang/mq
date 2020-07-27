@@ -1,4 +1,4 @@
-package com.yxl.direct_exchange;
+package com.yxl.fanout_exchange;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @description: Direct Exchange Producter
+ * @description: fanout Exchange Producter
  * @author: yexianliang
  * @create: 2020-07-24 16:53
  **/
-public class DirectExchangeProducter {
+public class FanoutExchangeProducter {
     public static void main(String[] args) throws IOException, TimeoutException {
         /**
          * 创建连接连接到MabbitMQ
@@ -28,15 +28,15 @@ public class DirectExchangeProducter {
         Channel channel = connection.createChannel();
 
         //定义交换机名称
-        String exchangeName = "yxl.directExchange2";
+        String exchangeName = "yxl.fanoutExchange";
 
-        //定义RouteKey
-        String routeKey = "yxl.directExchange.key";
+        //定义routingKey
+        String routingKey = "yxl.fanoutExchange.key";
 
         //消息体内容
-        for(int i = 1; i< 5;i++){
-            String message = "hello direct exchage "+ i;
-            channel.basicPublish(exchangeName, routeKey, null, message.getBytes());
+        for (int i = 1; i <= 5; i++) {
+            String message = "hello fanout exchage " + i;
+            channel.basicPublish(exchangeName, routingKey + i, null, message.getBytes());
         }
     }
 }

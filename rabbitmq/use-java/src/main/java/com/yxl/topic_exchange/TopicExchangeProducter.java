@@ -1,4 +1,4 @@
-package com.yxl.fanout_exchange;
+package com.yxl.topic_exchange;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @description: fanout Exchange Producter
+ * @description: topic Exchange Producter
  * @author: yexianliang
  * @create: 2020-07-24 16:53
  **/
-public class FanoutExchangeProducter {
+public class TopicExchangeProducter {
     public static void main(String[] args) throws IOException, TimeoutException {
         /**
          * 创建连接连接到MabbitMQ
@@ -28,15 +28,15 @@ public class FanoutExchangeProducter {
         Channel channel = connection.createChannel();
 
         //定义交换机名称
-        String exchangeName = "yxl.fanoutExchange";
+        String exchangeName = "yxl.topicExchange";
 
-        //定义RouteKey
-        String routeKey = "yxl.fanoutExchange.key";
+        //定义RoutingKey
+        String routingKey1 = "yxl.topicExchange.key1";
+        String routingKey2 = "yxl.topicExchange.key2";
+        String routingKey3 = "yxl.topicExchange.key.key3";
 
-        //消息体内容
-        for (int i = 1; i <= 5; i++) {
-            String message = "hello fanout exchage " + i;
-            channel.basicPublish(exchangeName, routeKey + i, null, message.getBytes());
-        }
+        channel.basicPublish(exchangeName, routingKey1, null, "第一条消息".getBytes());
+        channel.basicPublish(exchangeName, routingKey2, null, "第二条消息".getBytes());
+        channel.basicPublish(exchangeName, routingKey3, null, "第三条消息".getBytes());
     }
 }
